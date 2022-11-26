@@ -7,6 +7,7 @@ import {
   } from 'react'
   import type { User } from '@firebase/auth'
   import { getAuth, onAuthStateChanged } from '@firebase/auth'
+import { app } from './init'
   
   export type GlobalAuthState = {
     user: User | null | undefined
@@ -23,7 +24,7 @@ import {
   
     useEffect(() => {
       try {
-        const auth = getAuth()
+        const auth = getAuth(app);
         return onAuthStateChanged(auth, (user) => {
           setUser({
             user,
