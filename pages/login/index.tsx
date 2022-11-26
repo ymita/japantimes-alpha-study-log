@@ -35,7 +35,7 @@ export default function Index() {
         console.error("error", error);
       });
   }, []);
-  const checkLogint = () => {
+  const monitorLoginState = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log("user", user);
@@ -45,7 +45,7 @@ export default function Index() {
       }
     });
   };
-  checkLogint();
+  monitorLoginState();
   
   return (
     <div>
