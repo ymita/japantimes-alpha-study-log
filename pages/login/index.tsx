@@ -50,11 +50,10 @@ export default function Index() {
   return (
     <div>
       <h3>Google ログイン</h3>
+      <div>{user !== null ? user?.displayName : "ログインしていません。"}</div>
       <div>
         <button onClick={() => login()}>Login</button>
       </div>
-      <div>{user !== null ? user?.displayName : "ログインしていません。"}</div>
-      <div>ログイン状態 {user ? "ログイン中" : "未ログイン"}</div>
     </div>
   );
 }
