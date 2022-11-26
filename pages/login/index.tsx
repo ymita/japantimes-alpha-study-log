@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { auth } from "../../utils/firebase/init";
 import {
   getRedirectResult,
@@ -6,11 +6,12 @@ import {
   onAuthStateChanged,
   signInWithRedirect,
   signOut,
-  User,
 } from "firebase/auth";
+import { useAuthContext } from "../../utils/firebase/AuthProvider";
 
 export default function Index() {
-  const [user, setUser] = useState<User | null>(null);
+  const { user } = useAuthContext();
+  
   const provider = new GoogleAuthProvider();
   const login = () => {
     signInWithRedirect(auth, provider);
@@ -26,11 +27,9 @@ export default function Index() {
 
           const user = result.user;
           console.log("user", user);
-          setUser(user);
         }
       })
       .catch((error) => {
-        setUser(null);
         console.error("error", error);
       });
   }, []);
@@ -39,7 +38,6 @@ export default function Index() {
       if (user) {
         console.log("user", user);
       } else {
-        setUser(null);
         console.log("signed out");
       }
     });
@@ -54,15 +52,15 @@ export default function Index() {
         console.log(`ログアウト時にエラーが発生しました (${error})`);
       });
   };
-
   return (
     <div>
-      <h3>Google でログイン</h3>
+      <h3>Google ログイン</h3>
       <div>
         <button onClick={() => login()}>Login</button>
         <button onClick={() => logout()}>Logout</button>
       </div>
       <div>{user !== null ? user?.displayName : "ログインしていません。"}</div>
+      <div>ログイン状態 {user ? "ログイン中" : "未ログイン"}</div>
     </div>
   );
 }
