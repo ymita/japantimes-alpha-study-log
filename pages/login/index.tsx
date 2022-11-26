@@ -46,21 +46,12 @@ export default function Index() {
     });
   };
   checkLogint();
-  const logout = async () => {
-    signOut(auth)
-      .then(() => {
-        console.log("ログアウトしました");
-      })
-      .catch((error) => {
-        console.log(`ログアウト時にエラーが発生しました (${error})`);
-      });
-  };
+  
   return (
     <div>
       <h3>Google ログイン</h3>
       <div>
         <button onClick={() => login()}>Login</button>
-        <button onClick={() => logout()}>Logout</button>
       </div>
       <div>{user !== null ? user?.displayName : "ログインしていません。"}</div>
       <div>ログイン状態 {user ? "ログイン中" : "未ログイン"}</div>
