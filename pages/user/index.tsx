@@ -12,8 +12,9 @@ import { useRouter } from "next/router";
 
 export default function Index() {
   const router = useRouter();
-  const provider = new GoogleAuthProvider();
   const { user } = useAuthContext();
+  
+  const provider = new GoogleAuthProvider();
   const login = () => {
     signInWithRedirect(auth, provider);
   };
@@ -28,7 +29,6 @@ export default function Index() {
 
           const user = result.user;
           console.log("user", user);
-          router.push("/user");
         }
       })
       .catch((error) => {
@@ -39,9 +39,9 @@ export default function Index() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log("user", user);
-        router.push("/user");
       } else {
         console.log("signed out");
+        router.push("/login");
       }
     });
   };
@@ -57,13 +57,11 @@ export default function Index() {
   };
   return (
     <div>
-      <h3>Google ログイン</h3>
+      <h3>ログインユーザー</h3>
+      <div>{user !== null ? user?.displayName : "ログインしていません。"}</div>
       <div>
-        <button onClick={() => login()}>Login</button>
         <button onClick={() => logout()}>Logout</button>
       </div>
-      <div>{user !== null ? user?.displayName : "ログインしていません。"}</div>
-      <div>ログイン状態 {user ? "ログイン中" : "未ログイン"}</div>
     </div>
   );
 }
