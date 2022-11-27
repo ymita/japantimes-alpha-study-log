@@ -71,14 +71,6 @@ const readArticle = async (articleId: string, user: User): Promise<void> => {
 
   const data: StudyHistory = { articleId: articleId, userId: user.uid };
 
-  // setDoc(docRef, data)
-  //   .then((docRef) => {
-  //     console.log("Entire Document has been updated successfully");
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
-
   const docRefx = await addDoc(collection(db, "/study-history"), {
     articleId: articleId,
     userId: user.uid,
